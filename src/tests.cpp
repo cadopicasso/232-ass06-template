@@ -13,35 +13,61 @@
 /// Create a DoublyLinkedList. Verify length() is 0 on a new list.
 void test_new_list_is_empty(void)
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    DoublyLinkedList doubLinkList=DoublyLinkedList();
+
+    TEST_ASSERT_TRUE_MESSAGE(doubLinkList.length()==0, "test_new_list_is_empty FAIL");
 }
 
 /// Create a DoublyLinkedList. Call pushFrontValue and pushBackValue.
 /// Verify length() is 2.
 void test_push_increases_length(void)
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    DoublyLinkedList doubLinkList=DoublyLinkedList();
+
+    doubLinkList.pushFrontValue(1);
+    doubLinkList.pushBackValue(1);
+    TEST_ASSERT_TRUE_MESSAGE(doubLinkList.length()==2, "test_push_increases_length FAIL");
 }
 
 /// Create an EMPTY DoublyLinkedList.
 /// Verify popFrontValue() and popBackValue() both have NO value (has_value() is false).
 void test_pop_on_empty_list(void)
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    DoublyLinkedList doubLinkList=DoublyLinkedList();
+
+    std::optional<NodeValue> frontPop=doubLinkList.popFrontValue();
+    std::optional<NodeValue> backPop=doubLinkList.popBackValue();
+    TEST_ASSERT_TRUE_MESSAGE(frontPop.has_value()==false, "test_pop_on_empty_list FAIL 1");
+    TEST_ASSERT_TRUE_MESSAGE(backPop.has_value()==false, "test_pop_on_empty_list FAIL 2");
 }
 
 /// Push 1, 2, 3 with pushBackValue.
 /// Verify popBackValue() gives 3, then popFrontValue() gives 1, then length() is 1.
 void test_pop_order(void)
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    DoublyLinkedList doubLinkList=DoublyLinkedList();
+
+    doubLinkList.pushBackValue(1);
+    doubLinkList.pushBackValue(2);
+    doubLinkList.pushBackValue(3);
+
+    TEST_ASSERT_TRUE_MESSAGE(std::get<int>(doubLinkList.popBackValue().value())==3, "test_pop_order FAIL 1");
+    TEST_ASSERT_TRUE_MESSAGE(std::get<int>(doubLinkList.popFrontValue().value())==1, "test_pop_order FAIL 2");
+    TEST_ASSERT_TRUE_MESSAGE(doubLinkList.length()==1, "test_pop_order FAIL 3");
+
+    
 }
 
 /// Push one value, then call deleteValue with a value that is NOT in the list.
 /// Verify it returns false and length() does not change.
 void test_delete_value_not_found(void)
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    DoublyLinkedList doubLinkList=DoublyLinkedList();
+
+    doubLinkList.pushBackValue(1);
+
+
+    TEST_ASSERT_TRUE_MESSAGE(doubLinkList.deleteValue(2)==false, "test_delete_value_not_found FAIL");
 }
 
 /// Push 1, 2, 3 with pushBackValue. Call deleteValue(2).
@@ -49,7 +75,16 @@ void test_delete_value_not_found(void)
 /// (popBackValue follows prevPtr: this fails if you forgot to repair the backward link.)
 void test_delete_middle_keeps_links(void)
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    DoublyLinkedList doubLinkList=DoublyLinkedList();
+
+    doubLinkList.pushBackValue(1);
+    doubLinkList.pushBackValue(2);
+    doubLinkList.pushBackValue(3);
+
+    doubLinkList.deleteValue(2);
+
+    TEST_ASSERT_TRUE_MESSAGE(std::get<int>(doubLinkList.popBackValue().value())==3, "test_delete_middle_keeps_links FAIL 1");
+    TEST_ASSERT_TRUE_MESSAGE(std::get<int>(doubLinkList.popBackValue().value())==1, "test_delete_middle_keeps_links FAIL 2");
 }
 
 // ============================================================
