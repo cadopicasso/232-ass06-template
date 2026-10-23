@@ -107,7 +107,7 @@ DoubleNode *DoublyLinkedList::detachFirst()
         headPtr=detachedNodePtr->getNext();
 
         if (headPtr==nullptr){
-            tailPtr==nullptr;
+            tailPtr=nullptr;
         }
 
         detachedNodePtr->setNext(nullptr);
@@ -363,35 +363,53 @@ std::optional<NodeValue> StdDoublyLinkedList::popBackValue()
 /// Remove only the FIRST element equal to value. Return true if removed.
 bool StdDoublyLinkedList::deleteValue(NodeValue value)
 {
-    // TODO: implement
+    auto it = std::find(data.begin(), data.end(), value);
+    if (it != data.end()){
+        data.erase(it);
+        return true;
+    }
+        
+    
     return false;
 }
 
 /// Search without writing your own loop.
 bool StdDoublyLinkedList::containsValue(NodeValue value) const
 {
-    // TODO: implement
+    auto it = std::find(data.begin(), data.end(), value);
+    if (it != data.end())
+        return true;
+    
     return false;
 }
 
 /// Print head -> tail (same format as Part 2). Return the number of values.
 int StdDoublyLinkedList::printForward() const
 {
-    // TODO: implement
-    return 0;
+    for (NodeValue v : data)
+        std::visit([](auto x) { std::cout << x << " "; },v);
+    
+    return data.size();
 }
 
 /// Print tail -> head (same format as Part 2). Return the number of values.
 int StdDoublyLinkedList::printBackward() const
 {
-    // TODO: implement
-    return 0;
+    auto it = data.begin();
+
+    for (size_t i = 0; i < data.size(); i++)
+    {
+        std::visit([](auto x) { std::cout << x << " "; },*it);
+        it++;
+    }
+    
+    
+    return data.size();
 }
 
 /// size() returns size_t, length() returns int.
 int StdDoublyLinkedList::length() const
 {
-    // TODO: implement
-    return 0;
+    return data.size();
 }
 // ===== END PART 3 (do not remove this marker) =====

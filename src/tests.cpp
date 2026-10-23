@@ -95,12 +95,22 @@ void test_delete_middle_keeps_links(void)
 /// Verify length() is 2 and popFrontValue() gives 2 (only the FIRST 1 was removed).
 void test_std_delete_only_first(void)
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    StdDoublyLinkedList stdLinkList=StdDoublyLinkedList();
+
+    stdLinkList.pushBackValue(1);
+    stdLinkList.pushBackValue(2);
+    stdLinkList.pushBackValue(1);
+    stdLinkList.deleteValue(NodeValue{1});
+    TEST_ASSERT_TRUE_MESSAGE(stdLinkList.length()==2, "test_std_delete_only_first FAIL 1");
+    TEST_ASSERT_TRUE_MESSAGE(std::get<int>(stdLinkList.popFrontValue().value())==2, "test_std_delete_only_first FAIL 2");
 }
 
 /// Create an EMPTY StdDoublyLinkedList.
 /// Verify popFrontValue() and popBackValue() have NO value and do not crash.
 void test_std_pop_on_empty_list(void)
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    StdDoublyLinkedList stdLinkList=StdDoublyLinkedList();
+
+    TEST_ASSERT_TRUE_MESSAGE(stdLinkList.popFrontValue()==std::nullopt, "test_std_pop_on_empty_list FAIL 1");
+    TEST_ASSERT_TRUE_MESSAGE(stdLinkList.popBackValue()==std::nullopt, "test_std_pop_on_empty_list FAIL 2");
 }
